@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ค้นหาร้านยา</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>ค้นหาร้านขายยาคุณสมฤทธิ์</h1>
+
+        <div class="controls">
+            <div class="select-group">
+                <label for="regionSelect">เลือกภาค:</label>
+                <select id="regionSelect">
+                    <option value="">-- เลือกภาค --</option>
+                </select>
+            </div>
+
+            <div class="select-group">
+                <label for="provinceSelect">เลือกจังหวัด:</label>
+                <select id="provinceSelect" disabled>
+                    <option value="">-- เลือกจังหวัด --</option>
+                </select>
+            </div>
+
+            <div class="select-group">
+                <label for="districtSelect">เลือกอำเภอ:</label>
+                <select id="districtSelect" disabled>
+                    <option value="">-- เลือกอำเภอ --</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="pharmacyList" class="pharmacy-list">
+            <p class="initial-message">กรุณาเลือกภาค จังหวัด และอำเภอ เพื่อแสดงร้านยา</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
