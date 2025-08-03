@@ -125,28 +125,27 @@ select:disabled {
     color: #34495e;
 }
 
-/* สไตล์สำหรับไอคอน Google Maps */
 .map-link {
-    position: absolute; /* วางตำแหน่งแบบ absolute */
-    bottom: 15px; /* ห่างจากขอบล่าง 15px */
-    right: 15px;  /* ห่างจากขอบขวา 15px */
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
     cursor: pointer;
-    display: flex; /* จัดให้ไอคอนอยู่ตรงกลางเมื่อมี text */
-    align-items: center; /* จัดให้อยู่ตรงกลางตามแนวตั้ง */
-    gap: 5px; /* ระยะห่างระหว่างไอคอนกับข้อความ */
-    color: #007bff; /* สีของลิงก์/ไอคอน */
-    text-decoration: none; /* ไม่มีขีดเส้นใต้ */
-    font-size: 0.9em; /* ขนาดข้อความถ้ามี */
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #007bff;
+    text-decoration: none;
+    font-size: 0.9em;
 }
 
 .map-link:hover {
-    color: #0056b3; /* สีเมื่อเมาส์ชี้ */
+    color: #0056b3;
 }
 
 .map-icon {
-    width: 24px;  /* ขนาดของไอคอน */
+    width: 24px;
     height: 24px;
-    fill: currentColor; /* ใช้สีจาก parent (map-link) */
+    fill: currentColor;
 }
 
 @media (max-width: 768px) {
