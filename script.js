@@ -107,7 +107,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // *** ฟังก์ชันใหม่สำหรับสร้าง URL ของ Google Maps ***
     function createGoogleMapsUrl(pharmacy) {
         const lat = pharmacy.latitude;
         const lon = pharmacy.longitude;
@@ -115,11 +114,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const province = pharmacy.จังหวัด || '';
         const district = pharmacy.อำเภอ || '';
 
-        // ถ้ามีละติจูดและลองติจูด ให้ใช้พิกัด
         if (lat && lon && lat !== '' && lon !== '') {
             return `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
         } else {
-            // ถ้าไม่มี ให้ค้นหาด้วยชื่อร้าน + จังหวัด + อำเภอ
             const searchQuery = encodeURIComponent(`${name} ${district} ${province} ร้านยา`);
             return `https://www.google.com/maps/search/?api=1&query=${searchQuery}`;
         }
@@ -156,11 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const province = pharmacy.จังหวัด || 'ไม่ระบุ';
                 const district = pharmacy.อำเภอ || 'ไม่ระบุ';
                 const phone = pharmacy.เบอร์โทร || '-';
-
-                // สร้าง URL แผนที่
                 const mapUrl = createGoogleMapsUrl(pharmacy);
-
-                // ไอคอน SVG สำหรับ Google Maps
                 const mapIconSvg = `
                     <svg class="map-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
