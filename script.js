@@ -4,11 +4,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const provinceSelect = document.getElementById('provinceSelect');
     const districtSelect = document.getElementById('districtSelect');
     const pharmacyListDiv = document.getElementById('pharmacyList');
+    const searchButton = document.getElementById('searchButton');
 
     let allPharmacies = [];
     const jsonFilePath = 'pharmacies.json';
 
-    // โหลดข้อมูลจากไฟล์ JSON
     fetch(jsonFilePath)
         .then(response => {
             if (!response.ok) {
@@ -123,11 +123,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedProvince = provinceSelect.value;
         const selectedDistrict = districtSelect.value;
         
+        if (!selectedShopType || !selectedRegion || !selectedProvince || !selectedDistrict) {
+            pharmacyListDiv.innerHTML = '<p class="initial-message">กรุณาเลือกประเภทร้านค้า ภาค จังหวัด และอำเภอ ครบถ้วน</p>';
+            return;
+        }
+
         const filteredPharmacies = allPharmacies.filter(p =>
-            (!selectedShopType || p.ประเภทร้านค้า === selectedShopType) &&
-            (!selectedRegion || p.ภาค === selectedRegion) &&
-            (!selectedProvince || p.จังหวัด === selectedProvince) &&
-            (!selectedDistrict || p.อำเภอ === selectedDistrict)
+            p.ประเภทร้านค้า === selectedShopType &&
+            p.ภาค === selectedRegion &&
+            p.จังหวัด === selectedProvince &&
+            p.อำเภอ === selectedDistrict
         );
 
         pharmacyListDiv.innerHTML = '';
@@ -167,8 +172,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
                 pharmacyListDiv.appendChild(pharmacyCard);
             });
+            console.log(`พบ ${filteredPharmacies.length} ร้านยาที่ตรงกับเงื่อนไข`);
         } else {
             pharmacyListDiv.innerHTML = '<p class="initial-message">ไม่พบร้านยาในเงื่อนไขที่เลือก</p>';
+            console.log("ไม่พบร้านยาที่ตรงกับเงื่อนไข");
         }
     }
 
@@ -184,10 +191,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const district = pharmacy.อำเภอ || '';
 
         if (lat && lon && lat !== '' && lon !== '') {
-            return `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
+            return `http://googleusercontent.com/maps.google.com/7`;
         } else {
-            const searchQuery = encodeURIComponent(`${name} ${district} ${province} ร้านขายยา`);
-            return `https://www.google.com/maps/search/?api=1&query=${searchQuery}`;
+            const searchQuery = encodeURIComponent(`${name} ${district} ${province} ร้านยา`);
+            return `http://googleusercontent.com/maps.google.com/8`;
         }
     }
 
@@ -197,23 +204,22 @@ document.addEventListener('DOMContentLoaded', () => {
         provinceSelect.value = '';
         districtSelect.value = '';
         populateRegions();
-        displayPharmacies();
     });
 
     regionSelect.addEventListener('change', () => {
-        populateProvinces(regionSelect.value);
         provinceSelect.value = '';
         districtSelect.value = '';
-        displayPharmacies();
+        populateProvinces(regionSelect.value);
     });
 
     provinceSelect.addEventListener('change', () => {
-        populateDistricts(provinceSelect.value);
         districtSelect.value = '';
-        displayPharmacies();
+        populateDistricts(provinceSelect.value);
     });
 
     districtSelect.addEventListener('change', () => {
-        displayPharmacies();
     });
+
+    // New event listener for the search button
+    searchButton.addEventListener('click', displayPharmacies);
 });
