@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let allPharmacies = [];
     const jsonFilePath = 'pharmacies.json';
 
+    // โหลดข้อมูลจากไฟล์ JSON
     fetch(jsonFilePath)
         .then(response => {
             if (!response.ok) {
@@ -47,7 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
         shopTypeSelect.disabled = false;
     }
 
-    // Update populateRegions to filter based on selected shop type
     function populateRegions() {
         const selectedShopType = shopTypeSelect.value;
         const regions = [...new Set(allPharmacies
@@ -67,7 +67,6 @@ document.addEventListener('DOMContentLoaded', () => {
         districtSelect.disabled = true;
     }
 
-    // Update populateProvinces to filter based on selected shop type
     function populateProvinces(selectedRegion) {
         const selectedShopType = shopTypeSelect.value;
         provinceSelect.innerHTML = '<option value="">-- เลือกจังหวัด --</option>';
@@ -94,7 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Update populateDistricts to filter based on selected shop type
     function populateDistricts(selectedProvince) {
         const selectedShopType = shopTypeSelect.value;
         districtSelect.innerHTML = '<option value="">-- เลือกอำเภอ --</option>';
@@ -119,14 +117,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Update displayPharmacies to filter based on selected shop type
     function displayPharmacies() {
         const selectedShopType = shopTypeSelect.value;
         const selectedRegion = regionSelect.value;
         const selectedProvince = provinceSelect.value;
         const selectedDistrict = districtSelect.value;
-
-        // The filtering logic now properly handles the optional shop type selection
+        
         const filteredPharmacies = allPharmacies.filter(p =>
             (!selectedShopType || p.ประเภทร้านค้า === selectedShopType) &&
             (!selectedRegion || p.ภาค === selectedRegion) &&
@@ -171,10 +167,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
                 pharmacyListDiv.appendChild(pharmacyCard);
             });
-            console.log(`พบ ${filteredPharmacies.length} ร้านยาที่ตรงกับเงื่อนไข`);
         } else {
             pharmacyListDiv.innerHTML = '<p class="initial-message">ไม่พบร้านยาในเงื่อนไขที่เลือก</p>';
-            console.log("ไม่พบร้านยาที่ตรงกับเงื่อนไข");
         }
     }
 
@@ -190,10 +184,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const district = pharmacy.อำเภอ || '';
 
         if (lat && lon && lat !== '' && lon !== '') {
-            return `https://www.google.com/maps/search/?api=1&query=lat,lon`;
+            return `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
         } else {
-            const searchQuery = encodeURIComponent(`${name} ${district} ${province} ร้านยา`);
-            return `https://www.google.com/maps/search/?api=1&query=searchQuery`;
+            const searchQuery = encodeURIComponent(`${name} ${district} ${province} ร้านขายยา`);
+            return `https://www.google.com/maps/search/?api=1&query=${searchQuery}`;
         }
     }
 
