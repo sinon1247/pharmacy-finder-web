@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (Array.isArray(data) && data.length > 0) {
                 allPharmacies = data;
                 populateShopTypes();
-                populateRegions();
+                // We won't populate regions here initially
                 displayInitialMessage();
             } else {
                 pharmacyListDiv.innerHTML = '<p class="error-message">ไม่พบข้อมูลร้านยาในไฟล์ หรือข้อมูลไม่ถูกต้อง</p>';
@@ -46,6 +46,10 @@ document.addEventListener('DOMContentLoaded', () => {
             shopTypeSelect.appendChild(option);
         });
         shopTypeSelect.disabled = false;
+        // Initially disable all subsequent dropdowns
+        regionSelect.disabled = true;
+        provinceSelect.disabled = true;
+        districtSelect.disabled = true;
     }
 
     function populateRegions() {
@@ -62,7 +66,13 @@ document.addEventListener('DOMContentLoaded', () => {
             option.textContent = region;
             regionSelect.appendChild(option);
         });
-        regionSelect.disabled = false;
+
+        // Enable the region select only if a shop type is selected
+        if (selectedShopType) {
+            regionSelect.disabled = false;
+        } else {
+            regionSelect.disabled = true;
+        }
         provinceSelect.disabled = true;
         districtSelect.disabled = true;
     }
@@ -72,7 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
         provinceSelect.innerHTML = '<option value="">-- เลือกจังหวัด --</option>';
         districtSelect.innerHTML = '<option value="">-- เลือกอำเภอ --</option>';
         districtSelect.disabled = true;
-        clearPharmacyList();
 
         if (selectedRegion) {
             const provinces = [...new Set(allPharmacies
@@ -96,7 +105,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function populateDistricts(selectedProvince) {
         const selectedShopType = shopTypeSelect.value;
         districtSelect.innerHTML = '<option value="">-- เลือกอำเภอ --</option>';
-        clearPharmacyList();
 
         if (selectedProvince) {
             const districts = [...new Set(allPharmacies
@@ -122,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedRegion = regionSelect.value;
         const selectedProvince = provinceSelect.value;
         const selectedDistrict = districtSelect.value;
-        
+
         if (!selectedShopType || !selectedRegion || !selectedProvince || !selectedDistrict) {
             pharmacyListDiv.innerHTML = '<p class="initial-message">กรุณาเลือกประเภทร้านค้า ภาค จังหวัด และอำเภอ ครบถ้วน</p>';
             return;
@@ -191,35 +199,59 @@ document.addEventListener('DOMContentLoaded', () => {
         const district = pharmacy.อำเภอ || '';
 
         if (lat && lon && lat !== '' && lon !== '') {
-            return `http://googleusercontent.com/maps.google.com/7`;
+            return `http://googleusercontent.com/maps.google.com/9`;
         } else {
             const searchQuery = encodeURIComponent(`${name} ${district} ${province} ร้านยา`);
-            return `http://googleusercontent.com/maps.google.com/8`;
+            return `https://www.google.com/maps/search/?api=1&query=ชื่อร้านยา+จังหวัด+อำเภอ0`;
         }
     }
 
     // Event listeners
     shopTypeSelect.addEventListener('change', () => {
+        // Reset and disable subsequent dropdowns
         regionSelect.value = '';
+        regionSelect.disabled = true;
         provinceSelect.value = '';
+        provinceSelect.disabled = true;
         districtSelect.value = '';
-        populateRegions();
+        districtSelect.disabled = true;
+        clearPharmacyList();
+
+        // If a shop type is selected, populate the regions dropdown
+        if (shopTypeSelect.value) {
+            populateRegions();
+        } else {
+            // If no shop type is selected, keep region dropdown disabled
+            regionSelect.disabled = true;
+        }
     });
 
     regionSelect.addEventListener('change', () => {
         provinceSelect.value = '';
         districtSelect.value = '';
-        populateProvinces(regionSelect.value);
+        clearPharmacyList();
+
+        if (regionSelect.value) {
+            populateProvinces(regionSelect.value);
+        } else {
+            provinceSelect.disabled = true;
+        }
     });
 
     provinceSelect.addEventListener('change', () => {
         districtSelect.value = '';
-        populateDistricts(provinceSelect.value);
+        clearPharmacyList();
+
+        if (provinceSelect.value) {
+            populateDistricts(provinceSelect.value);
+        } else {
+            districtSelect.disabled = true;
+        }
     });
 
     districtSelect.addEventListener('change', () => {
+        clearPharmacyList();
     });
 
-    // New event listener for the search button
     searchButton.addEventListener('click', displayPharmacies);
 });
