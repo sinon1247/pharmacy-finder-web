@@ -77,6 +77,28 @@ select:disabled {
     opacity: 0.7;
 }
 
+.search-button-container {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#searchButton {
+    padding: 12px 30px;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#searchButton:hover {
+    background-color: #0056b3;
+}
+
 .pharmacy-list {
     margin-top: 20px;
     border-top: 1px solid #eee;
@@ -101,7 +123,7 @@ select:disabled {
     margin-bottom: 15px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     transition: transform 0.2s ease-in-out;
-    position: relative; /* สำหรับตำแหน่งของไอคอน */
+    position: relative;
 }
 
 .pharmacy-card:hover {
