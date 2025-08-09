@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (Array.isArray(data) && data.length > 0) {
                 allPharmacies = data;
                 populateShopTypes();
-                // We won't populate regions here initially
+                // We don't populate regions here initially
                 displayInitialMessage();
             } else {
                 pharmacyListDiv.innerHTML = '<p class="error-message">ไม่พบข้อมูลร้านยาในไฟล์ หรือข้อมูลไม่ถูกต้อง</p>';
@@ -199,30 +199,26 @@ document.addEventListener('DOMContentLoaded', () => {
         const district = pharmacy.อำเภอ || '';
 
         if (lat && lon && lat !== '' && lon !== '') {
-            return `http://googleusercontent.com/maps.google.com/9`;
-        } else {
-            const searchQuery = encodeURIComponent(`${name} ${district} ${province} ร้านยา`);
             return `https://www.google.com/maps/search/?api=1&query=ชื่อร้านยา+จังหวัด+อำเภอ0`;
+        } else {
+            const searchQuery = encodeURIComponent(`${name} ${district} ${province}`);
+            return `http://googleusercontent.com/maps.google.com/9`;
         }
     }
 
     // Event listeners
     shopTypeSelect.addEventListener('change', () => {
-        // Reset and disable subsequent dropdowns
         regionSelect.value = '';
-        regionSelect.disabled = true;
         provinceSelect.value = '';
-        provinceSelect.disabled = true;
         districtSelect.value = '';
-        districtSelect.disabled = true;
         clearPharmacyList();
 
-        // If a shop type is selected, populate the regions dropdown
         if (shopTypeSelect.value) {
             populateRegions();
         } else {
-            // If no shop type is selected, keep region dropdown disabled
             regionSelect.disabled = true;
+            provinceSelect.disabled = true;
+            districtSelect.disabled = true;
         }
     });
 
@@ -235,6 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
             populateProvinces(regionSelect.value);
         } else {
             provinceSelect.disabled = true;
+            districtSelect.disabled = true;
         }
     });
 
