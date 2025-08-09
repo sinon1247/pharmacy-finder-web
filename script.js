@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (Array.isArray(data) && data.length > 0) {
                 allPharmacies = data;
                 populateShopTypes();
-                // We don't populate regions here initially
                 displayInitialMessage();
             } else {
                 pharmacyListDiv.innerHTML = '<p class="error-message">ไม่พบข้อมูลร้านยาในไฟล์ หรือข้อมูลไม่ถูกต้อง</p>';
@@ -46,7 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
             shopTypeSelect.appendChild(option);
         });
         shopTypeSelect.disabled = false;
-        // Initially disable all subsequent dropdowns
         regionSelect.disabled = true;
         provinceSelect.disabled = true;
         districtSelect.disabled = true;
@@ -67,7 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
             regionSelect.appendChild(option);
         });
 
-        // Enable the region select only if a shop type is selected
         if (selectedShopType) {
             regionSelect.disabled = false;
         } else {
@@ -199,10 +196,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const district = pharmacy.อำเภอ || '';
 
         if (lat && lon && lat !== '' && lon !== '') {
-            return `http://googleusercontent.com/maps.google.com/9`;
+            return `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
         } else {
             const searchQuery = encodeURIComponent(`${name} ${district} ${province}`);
-            return `https://www.google.com/maps/search/?api=1&query=ชื่อร้านยา+จังหวัด+อำเภอ0`;
+            return `https://www.google.com/maps/search/?api=1&query=${searchQuery}`;
         }
     }
 
