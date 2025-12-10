@@ -5,19 +5,31 @@ body {
     background-color: #f4f7f6;
     color: #333;
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    flex-direction: column;
+    align-items: center;
     min-height: 100vh;
+    background-image: url('bg-image.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+}
+
+img {
+  max-width: 40%;
+  height: auto;
+  min-width: 300px;
 }
 
 .container {
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 15px;
     padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 800px;
-    box-sizing: border-box;
 }
 
 h1 {
@@ -88,7 +100,7 @@ select:disabled {
     font-size: 1.1em;
     font-weight: bold;
     color: #fff;
-    background-color: #007bff;
+    background-color: #397adc;
     border: none;
     border-radius: 6px;
     cursor: pointer;
@@ -116,8 +128,10 @@ select:disabled {
 }
 
 .pharmacy-card {
-    background-color: #f8f9fa;
-    border: 1px solid #e9ecef;
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(233, 236, 239, 0.5);
     border-radius: 8px;
     padding: 15px;
     margin-bottom: 15px;
@@ -131,7 +145,7 @@ select:disabled {
 }
 
 .pharmacy-card h3 {
-    color: #007bff;
+    color: #397adc;
     margin-top: 0;
     margin-bottom: 10px;
     font-size: 1.4em;
@@ -155,7 +169,7 @@ select:disabled {
     display: flex;
     align-items: center;
     gap: 5px;
-    color: #007bff;
+    color: #397adc;
     text-decoration: none;
     font-size: 0.9em;
 }
@@ -168,6 +182,15 @@ select:disabled {
     width: 24px;
     height: 24px;
     fill: currentColor;
+}
+
+.phone-link {
+    color: #397adc;
+    text-decoration: none;
+}
+
+.phone-link:hover {
+    text-decoration: underline;
 }
 
 @media (max-width: 768px) {
