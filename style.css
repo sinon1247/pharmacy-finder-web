@@ -167,7 +167,7 @@ select:disabled {
     right: 15px;
     cursor: pointer;
     display: flex;
-    flex-direction: column
+    flex-direction: column !important;
     align-items: center;
     gap: 5px;
     color: #397adc;
