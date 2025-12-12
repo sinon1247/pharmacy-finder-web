@@ -200,6 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p><strong>อำเภอ:</strong> ${district}</p>
                     <p><strong>เบอร์โทร:</strong> ${phoneLinksHtml}</p>
                     <a href="${mapUrl}" target="_blank" class="map-link">
+                        <span class="map-text">คลิกเพื่อเข้าแมพ</span>
                         ${mapIconSvg}
                     </a>
                 `;
