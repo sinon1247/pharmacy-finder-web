@@ -202,4 +202,26 @@ select:disabled {
         min-width: unset;
         width: 100%;
     }
+    .map-link-container {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    margin-top: 8px;
+    }
+
+    .map-text {
+    font-size: 14px;
+    color: #1a73e8;
+    margin-bottom: 4px;
+    text-decoration: underline;
+    cursor: pointer;
+    }
+
+    .map-icon {
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    }
+
 }
